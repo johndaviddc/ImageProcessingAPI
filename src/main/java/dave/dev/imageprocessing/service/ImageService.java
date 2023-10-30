@@ -21,7 +21,7 @@ public class ImageService {
 
     public Image getImageById(Long id) {
         return imageRepository.findById(id)
-                .orElseThrow(() -> ImageProcessingException("Image not found with ID: " + id));
+                .orElseThrow(() -> new ImageProcessingException("Image not found with ID: " + id));
     }
 
     public void deleteImage(Long id) {
