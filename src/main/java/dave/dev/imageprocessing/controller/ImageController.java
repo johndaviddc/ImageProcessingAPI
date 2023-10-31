@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
@@ -42,5 +44,11 @@ public class ImageController {
         } catch (ImageProcessingException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Image>> getAllImages() {
+        List<Image> images = imageService.getAllImages();
+        return ResponseEntity.ok(images);
     }
 }
