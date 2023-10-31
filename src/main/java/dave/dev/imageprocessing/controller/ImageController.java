@@ -1,13 +1,11 @@
 package dave.dev.imageprocessing.controller;
 
 import dave.dev.imageprocessing.model.Image;
+import dave.dev.imageprocessing.service.ImageProcessingException;
 import dave.dev.imageprocessing.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -33,6 +31,16 @@ public class ImageController {
             return ResponseEntity.ok("Image uploaded successfully with ID: " + savedImage.getId());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Image upload failed: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Image> getImageById(@PathVariable Long id) {
+        try {
+            Image image = imageService.getImageById(id);
+            return ResponseEntity.ok(image);
+        } catch (ImageProcessingException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 }
