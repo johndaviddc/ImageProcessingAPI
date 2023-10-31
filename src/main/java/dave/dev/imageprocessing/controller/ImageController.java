@@ -51,4 +51,14 @@ public class ImageController {
         List<Image> images = imageService.getAllImages();
         return ResponseEntity.ok(images);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteImage(@PathVariable Long id) {
+        try {
+            imageService.deleteImage(id);
+            return ResponseEntity.ok("Image with ID " + id + " deleted successfully");
+        } catch (ImageProcessingException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
