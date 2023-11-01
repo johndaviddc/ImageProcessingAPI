@@ -13,5 +13,9 @@ public class GrayscaleFilter {
 
         ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
         BufferedImage grayscaleImage = op.filter(image, null);
+
+        ImageIO.write(grayscaleImage, "png", new File(outputImagePath));
+
+        return grayscaleImage;
     }
 }
